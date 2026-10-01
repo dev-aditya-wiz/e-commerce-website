@@ -1,0 +1,496 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f6f6f6;
+            color: #222;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .container {
+            width: 84%;
+            max-width: 1200px;
+            margin: 45px auto;
+        }
+
+        .page-title {
+            margin-bottom: 30px;
+        }
+
+        .page-title h2 {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #777;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .product-image {
+            width: 110px;
+            height: 110px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info h3 {
+            font-size: 19px;
+            margin-bottom: 8px;
+        }
+
+        .product-info p {
+            color: #777;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 20px;
+        }
+
+        .quantity button {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .quantity button:hover {
+            background: #111;
+            color: white;
+        }
+
+        .quantity span {
+            min-width: 25px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .remove-btn {
+            border: none;
+            background: transparent;
+            color: #e53935;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .remove-btn:hover {
+            text-decoration: underline;
+        }
+
+        .summary {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            height: fit-content;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .summary h3 {
+            font-size: 23px;
+            margin-bottom: 25px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            color: #555;
+        }
+
+        .summary-total {
+            border-top: 1px solid #ddd;
+            padding-top: 18px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #111;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .checkout-btn:hover {
+            background: #333;
+        }
+
+        .continue-shopping {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #111;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            display: none;
+        }
+
+        .empty-cart h3 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .empty-cart p {
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 850px) {
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 92%;
+                margin: 30px auto;
+            }
+
+            header {
+                padding: 18px 5%;
+            }
+
+            .cart-item {
+                flex-wrap: wrap;
+            }
+
+            .product-image {
+                width: 85px;
+                height: 85px;
+            }
+
+            .quantity {
+                margin-left: 105px;
+                margin-right: 0;
+            }
+
+            .remove-btn {
+                margin-left: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>My Store</h1>
+        <a href="index.html">← Continue Shopping</a>
+    </header>
+
+    <main class="container">
+
+        <div class="page-title">
+            <h2>Your Cart</h2>
+            <p>Review your items before checking out.</p>
+        </div>
+
+        <div class="cart-layout">
+
+            <!-- Cart Items -->
+            <section class="cart-items" id="cartItems">
+
+                <div class="cart-item" data-price="499">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+                        alt="Smart Watch"
+                        class="product-image"
+                    >
+
+                    <div class="product-info">
+                        <h3>Smart Watch</h3>
+                        <p>Premium smart watch with modern features</p>
+                        <div class="price">₹499</div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity(this, -1)">−</button>
+                        <span>1</span>
+                        <button onclick="changeQuantity(this, 1)">+</button>
+                    </div>
+
+                    <button class="remove-btn" onclick="removeItem(this)">
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <div class="cart-item" data-price="799">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+                        alt="Running Shoes"
+                        class="product-image"
+                    >
+
+                    <div class="product-info">
+                        <h3>Running Shoes</h3>
+                        <p>Comfortable shoes for everyday use</p>
+                        <div class="price">₹799</div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity(this, -1)">−</button>
+                        <span>1</span>
+                        <button onclick="changeQuantity(this, 1)">+</button>
+                    </div>
+
+                    <button class="remove-btn" onclick="removeItem(this)">
+                        Remove
+                    </button>
+
+                </div>
+
+
+                <div class="cart-item" data-price="299">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1503602642458-232111445657"
+                        alt="Chair"
+                        class="product-image"
+                    >
+
+                    <div class="product-info">
+                        <h3>Modern Chair</h3>
+                        <p>Minimal and comfortable home chair</p>
+                        <div class="price">₹299</div>
+                    </div>
+
+                    <div class="quantity">
+                        <button onclick="changeQuantity(this, -1)">−</button>
+                        <span>1</span>
+                        <button onclick="changeQuantity(this, 1)">+</button>
+                    </div>
+
+                    <button class="remove-btn" onclick="removeItem(this)">
+                        Remove
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Order Summary -->
+            <aside class="summary">
+
+                <h3>Order Summary</h3>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">₹1,597</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Delivery</span>
+                    <span>Free</span>
+                </div>
+
+                <div class="summary-total">
+                    <span>Total</span>
+                    <span id="total">₹1,597</span>
+                </div>
+
+                <button class="checkout-btn" onclick="checkout()">
+                    Proceed to Checkout
+                </button>
+
+                <a href="index.html" class="continue-shopping">
+                    Continue Shopping
+                </a>
+
+            </aside>
+
+        </div>
+
+
+        <!-- Empty Cart -->
+        <div class="empty-cart" id="emptyCart">
+            <h3>Your cart is empty</h3>
+            <p>Add some products to your cart to continue.</p>
+            <a href="index.html">Start Shopping</a>
+        </div>
+
+    </main>
+
+
+    <script>
+
+        function changeQuantity(button, change) {
+
+            const quantityContainer = button.parentElement;
+            const quantityText = quantityContainer.querySelector("span");
+
+            let quantity = parseInt(quantityText.textContent);
+
+            quantity += change;
+
+            if (quantity < 1) {
+                quantity = 1;
+            }
+
+            quantityText.textContent = quantity;
+
+            updateTotal();
+        }
+
+
+        function removeItem(button) {
+
+            const item = button.closest(".cart-item");
+
+            item.remove();
+
+            updateTotal();
+
+            const items = document.querySelectorAll(".cart-item");
+
+            if (items.length === 0) {
+
+                document.querySelector(".cart-layout").style.display = "none";
+                document.querySelector(".empty-cart").style.display = "block";
+
+            }
+
+        }
+
+
+        function updateTotal() {
+
+            const items = document.querySelectorAll(".cart-item");
+
+            let total = 0;
+
+            items.forEach(item => {
+
+                const price = parseFloat(item.dataset.price);
+
+                const quantity = parseInt(
+                    item.querySelector(".quantity span").textContent
+                );
+
+                total += price * quantity;
+
+            });
+
+            document.getElementById("subtotal").textContent =
+                "₹" + total.toLocaleString("en-IN");
+
+            document.getElementById("total").textContent =
+                "₹" + total.toLocaleString("en-IN");
+
+        }
+
+
+        function checkout() {
+
+            const items = document.querySelectorAll(".cart-item");
+
+            if (items.length === 0) {
+
+                alert("Your cart is empty!");
+
+                return;
+            }
+
+            alert("Proceeding to checkout...");
+
+            // Replace this with your checkout page:
+            // window.location.href = "checkout.html";
+
+        }
+
+    </script>
+
+</body>
+</html>
+```
