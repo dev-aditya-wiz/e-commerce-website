@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        .profile-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .profile-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 25px;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .profile-info h1 {
+            margin-bottom: 8px;
+        }
+
+        .profile-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .edit-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+            color: #222;
+        }
+
+        .address {
+            background-color: #f8f8f8;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .orders {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .status {
+            color: green;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .profile-container {
+                margin: 20px auto;
+                padding: 10px;
+            }
+
+            .profile-card {
+                padding: 20px;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            table {
+                min-width: 600px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="profile-container">
+
+        <div class="profile-card">
+
+            <div class="profile-header">
+                <img src="profile.jpg" alt="Profile Image" class="profile-image">
+
+                <div class="profile-info">
+                    <h1>Rudra Patel</h1>
+                    <p>Email: rudra@example.com</p>
+                    <p>Phone: +91 98765 43210</p>
+                    <button class="edit-btn">Edit Profile</button>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Address Information</h2>
+
+                <div class="address">
+                    <p><strong>Address:</strong> 45 Innovation Park</p>
+                    <p><strong>City:</strong> Ahmedabad</p>
+                    <p><strong>State:</strong> Gujarat</p>
+                    <p><strong>Country:</strong> India</p>
+                    <p><strong>PIN Code:</strong> 380001</p>
+                </div>
+            </div>
+
+            <div class="section orders">
+                <h2>Order History</h2>
+
+                <table>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Date</th>
+                        <th>Product</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+
+                    <tr>
+                        <td>#1001</td>
+                        <td>25 Sep 2026</td>
+                        <td>Laptop Stand</td>
+                        <td>₹1,499</td>
+                        <td class="status">Delivered</td>
+                    </tr>
+
+                    <tr>
+                        <td>#1002</td>
+                        <td>20 Sep 2026</td>
+                        <td>Wireless Mouse</td>
+                        <td>₹799</td>
+                        <td class="status">Delivered</td>
+                    </tr>
+
+                    <tr>
+                        <td>#1003</td>
+                        <td>15 Sep 2026</td>
+                        <td>Keyboard</td>
+                        <td>₹1,299</td>
+                        <td class="status">Delivered</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
